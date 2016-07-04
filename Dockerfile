@@ -50,18 +50,18 @@ RUN mkdir -p /home/jenkins/composerbin && chown -R jenkins:jenkins /home/jenkins
 	ln -s /home/jenkins/composerbin/phpmd /usr/local/bin/; \
 	ln -s /home/jenkins/composerbin/phpunit /usr/local/bin/
 
-RUN echo 'if [ -z "$TIME_ZONE" ]; then echo "No TIME_ZONE env set!" && exit 1; fi' > /set_timezone.sh; \
-	echo "sed -i 's|;date.timezone.*=.*|date.timezone='\$TIME_ZONE'|' /etc/php5/cli/php.ini;" >> /set_timezone.sh; \
-	echo "echo \$TIME_ZONE > /etc/timezone;" >> /set_timezone.sh; \
-	echo "export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive;" >> /set_timezone.sh; \
-	echo "dpkg-reconfigure tzdata" >> /set_timezone.sh; \
-	echo "echo time zone set to: \$TIME_ZONE"  >> /set_timezone.sh
+#RUN echo 'if [ -z "$TIME_ZONE" ]; then echo "No TIME_ZONE env set!" && exit 1; fi' > /set_timezone.sh; \
+#	echo "sed -i 's|;date.timezone.*=.*|date.timezone='\$TIME_ZONE'|' /etc/php5/cli/php.ini;" >> /set_timezone.sh; \
+#	echo "echo \$TIME_ZONE > /etc/timezone;" >> /set_timezone.sh; \
+#	echo "export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive;" >> /set_timezone.sh; \
+#	echo "dpkg-reconfigure tzdata" >> /set_timezone.sh; \
+#	echo "echo time zone set to: \$TIME_ZONE"  >> /set_timezone.sh
 
-RUN echo 'if [ -n "$TIME_ZONE" ]; then sh /set_timezone.sh; fi;' > /run_all.sh; \
-	echo "curl -o /var/lib/jenkins/jobs/php-template/config.xml https://raw.githubusercontent.com/jakubigla/jenkins-php-template/master/config.xml " >> /run_all.sh; \
-	echo "service jenkins start" >> /run_all.sh; \
-	echo "tail -f /var/log/jenkins/jenkins.log;" >> /run_all.sh
+#RUN echo 'if [ -n "$TIME_ZONE" ]; then sh /set_timezone.sh; fi;' > /run_all.sh; \
+#	echo "curl -o /var/lib/jenkins/jobs/php-template/config.xml https://raw.githubusercontent.com/jakubigla/jenkins-php-template/master/config.xml " >> /run_all.sh; \
+#	echo "service jenkins start" >> /run_all.sh; \
+#	echo "tail -f /var/log/jenkins/jenkins.log;" >> /run_all.sh
 
 EXPOSE 8080
 
-CMD ["sh", "/run_all.sh"]
+#CMD ["sh", "/run_all.sh"]
